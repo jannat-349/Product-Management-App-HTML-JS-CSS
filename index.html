@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management App</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body>
+    <h1>PRODUCT MANAGEMENT APP</h1>
+    <main>
+        <section class="input">
+            <div class="pid-input">
+                <label>PRODUCT ID: </label>
+                <input type="number" class="pid" placeholder="Enter Your Product ID">
+            </div>
+            <div class="pname-input">
+                <label>PRODUCT NAME: </label>
+                <input type="text" class="pname" placeholder="Enter Your Product Name">
+            </div>
+            <div class="price-input">
+                <label>PRICE: </label>
+                <input type="text" class="price" placeholder="Enter Your Product Price">
+            </div>
+            <div class="add">
+                <button class="add-product">ADD</button>
+            </div>
+        </section>
+        <h3>PRODUCT LIST</h3>
+        <section class="output">
+            <table>
+                <thead>
+                    <th>PRODUCT ID</th>
+                    <th>PRODUCT NAME</th>
+                    <th>PRODUCT PRICE</th>
+                    <th>OPTION</th>
+                </thead>
+                <tbody>
+                    <td class="pid-tbl"></td>
+                    <td class="pname-tbl"></td>
+                    <td class="price-tbl"></td>
+                    <td class="option-tbl"></td>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src = "JS/script.js"></script>
+</body>
+</html>
