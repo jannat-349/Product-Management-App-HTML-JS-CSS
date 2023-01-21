@@ -20,6 +20,13 @@ function isPriceNegative() {
 function isPriceValid() {
   return (productPrice <= 100000.00) ? true : false;
 }
+function addInputMsg() {
+  const msg = document.getElementById("msg");
+  msg.innerText = `Nice to have the product added`;
+  setTimeout(function() {
+    msg.innerText = ``;
+  }, 3000); 
+}
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value.trim();
@@ -46,6 +53,7 @@ function getInput() {
   }
   count++;
   pidList.push(productId);
+  addInputMsg();
   return {
     pid: productId,
     pname: productName,
@@ -60,6 +68,7 @@ function addTableHead(tblHead) {
     <th>PRODUCT PRICE</th>
     <th>OPTION</th>`;
 }
+
 
 function addProduct() {
   let product = getInput();
