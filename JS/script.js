@@ -1,8 +1,25 @@
+let productId;
+let productName;
+let productPrice;
+let count = 0;
+function isEmpty() {
+  return (productId && productName && productPrice)
+    ? false
+    : true;
+}
 function getInput() {
+  productId = document.getElementById("pid").value;
+  productName = document.getElementById("pname").value;
+  productPrice = document.getElementById("price").value;
+  if(isEmpty()) {
+    alert("Fields can not be empty!");
+    return;
+  }
+  count++;
   return {
-    pid: document.getElementById("pid").value,
-    pname: document.getElementById("pname").value,
-    price: document.getElementById("price").value,
+    pid: productId,
+    pname: productName,
+    price: productPrice,
   };
 }
 
@@ -15,17 +32,19 @@ function addTableHead(tblHead) {
 }
 
 function addProduct() {
-  const tblHead = document.getElementById("tbl-head");
-  addTableHead(tblHead);
   let product = getInput();
-  const table = document.getElementById("tbl");
-  const e1 = document.createElement("tr");
-  e1.innerHTML = `<td>${product.pid}</td>
+  if (count > 0) {
+    const tblHead = document.getElementById("tbl-head");
+    addTableHead(tblHead);
+    const table = document.getElementById("tbl");
+    const e1 = document.createElement("tr");
+    e1.innerHTML = `<td>${product.pid}</td>
     <td>${product.pname}</td>
     <td>${product.price}</td>
     <td>
       <button>EDIT</button>
       <button>DELETE</button>
     </td>`;
-  table.appendChild(e1);
+    table.appendChild(e1);
+  }
 }
