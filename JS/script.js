@@ -7,6 +7,10 @@ function isEmpty() {
     ? false
     : true;
 }
+const pidList = [];
+function isIdDupicate() {
+  return pidList.includes(productId);
+}
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value;
@@ -15,7 +19,12 @@ function getInput() {
     alert("Fields can not be empty!");
     return;
   }
+  if(isIdDupicate(productId)) {
+    alert("Product ID must be unique!")
+    return;
+  }
   count++;
+  pidList.push(productId);
   return {
     pid: productId,
     pname: productName,
