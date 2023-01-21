@@ -17,6 +17,9 @@ function isLongerPName() {
 function isPriceNegative() {
   return (productPrice < 0)? true : false;
 }
+function isPriceValid() {
+  return (productPrice <= 100000.00) ? true : false;
+}
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value.trim();
@@ -35,6 +38,10 @@ function getInput() {
   }
   if(isPriceNegative()) {
     alert("Product price can not be negative");
+    return;
+  }
+  if(!isPriceValid()) {
+    alert("Price can not be more than 100000.00");
     return;
   }
   count++;
