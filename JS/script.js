@@ -11,6 +11,9 @@ const pidList = [];
 function isIdDupicate() {
   return pidList.includes(productId);
 }
+function isLongerPName() {
+  return (productName.length > 60)? true : false;
+}
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value.trim();
@@ -21,6 +24,10 @@ function getInput() {
   }
   if(isIdDupicate(productId)) {
     alert("Product ID must be unique!")
+    return;
+  }
+  if(isLongerPName()) {
+    alert("Product name can not be longer than 60 characters!");
     return;
   }
   count++;
