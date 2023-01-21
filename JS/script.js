@@ -14,6 +14,9 @@ function isIdDupicate() {
 function isLongerPName() {
   return (productName.length > 60)? true : false;
 }
+function isPriceNegative() {
+  return (productPrice < 0)? true : false;
+}
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value.trim();
@@ -28,6 +31,10 @@ function getInput() {
   }
   if(isLongerPName()) {
     alert("Product name can not be longer than 60 characters!");
+    return;
+  }
+  if(isPriceNegative()) {
+    alert("Product price can not be negative");
     return;
   }
   count++;
