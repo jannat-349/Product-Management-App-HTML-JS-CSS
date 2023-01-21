@@ -13,7 +13,7 @@ function isIdDupicate() {
 }
 function getInput() {
   productId = document.getElementById("pid").value;
-  productName = document.getElementById("pname").value;
+  productName = document.getElementById("pname").value.trim();
   productPrice = document.getElementById("price").value;
   if(isEmpty()) {
     alert("Fields can not be empty!");
