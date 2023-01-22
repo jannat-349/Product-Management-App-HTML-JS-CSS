@@ -72,19 +72,34 @@ function addTableHead(tblHead) {
     <th>OPTION</th>`;
 }
 
+function deleteElement(p) {
+  const row = document.getElementById(p);
+  row.remove();
+  pidList.splice(pidList.indexOf(row.getAttribute("id")), 1);
+  count--;
+  if (count === 0) {
+    const tblHead = document.getElementById("tbl-head");
+    tblHead.innerHTML = `<thead id = "tbl-head">
+    <th>Nothing to show!</th>
+  </thead>`;
+  }
+
+}
+
 function addProduct() {
   let product = getInput();
   if (count > 0) {
     const tblHead = document.getElementById("tbl-head");
     addTableHead(tblHead);
-    const table = document.getElementById("tbl");
+    const table = document.getElementsByTagName("tbody")[0];
     const e1 = document.createElement("tr");
+    e1.setAttribute("id", product.pid);
     e1.innerHTML = `<td>${product.pid}</td>
     <td>${product.pname}</td>
     <td>${product.price}</td>
     <td>
-      <button>EDIT</button>
-      <button>DELETE</button>
+      <button class = "edit-btn">EDIT</button>
+      <button class = "delete-btn" onclick = "deleteElement(${e1.getAttribute("id")})">DELETE</button>
     </td>`;
     table.appendChild(e1);
   }
