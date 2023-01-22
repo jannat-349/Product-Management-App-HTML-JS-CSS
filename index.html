@@ -13,19 +13,11 @@
       <section class="input">
         <div class="pid-input">
           <label>PRODUCT ID: </label>
-          <input
-            type="number"
-            id="pid"
-            placeholder="Enter Your Product ID"
-          />
+          <input type="number" id="pid" placeholder="Enter Your Product ID" />
         </div>
         <div class="pname-input">
           <label>PRODUCT NAME: </label>
-          <input
-            type="text"
-            id="pname"
-            placeholder="Enter Your Product Name"
-          />
+          <input type="text" id="pname" placeholder="Enter Your Product Name" />
         </div>
         <div class="price-input">
           <label>PRICE: </label>
@@ -43,12 +35,21 @@
       <h3>PRODUCT LIST</h3>
       <section class="output">
         <table id="tbl">
-          <thead id = "tbl-head">
+          <thead id="tbl-head">
             <th>Nothing to show!</th>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
         </table>
+        <div id="confirm" hidden>
+          <h3>Confirmation</h3>
+          <p id="delete-msg"></p>
+          <button class="confirmDelete-btn" onclick="deleteElement()">
+            Delete
+          </button>
+          <button class="cancelDelete-btn" onclick="cancelDelete()">
+            Cancel
+          </button>
+        </div>
       </section>
     </main>
 

@@ -71,8 +71,14 @@ function addTableHead(tblHead) {
     <th>PRODUCT PRICE</th>
     <th>OPTION</th>`;
 }
-
-function deleteElement(p) {
+let p;
+function confirmation(pp) {
+  document.getElementById("confirm").hidden=false;
+  const deleteMsg = document.getElementById("delete-msg");
+  deleteMsg.innerText = `Do you really want to delete the product with id ${pp}`;
+  p = pp;
+}
+function deleteElement() {
   const row = document.getElementById(p);
   row.remove();
   pidList.splice(pidList.indexOf(row.getAttribute("id")), 1);
@@ -83,7 +89,10 @@ function deleteElement(p) {
     <th>Nothing to show!</th>
   </thead>`;
   }
-
+  document.getElementById("confirm").hidden=true;
+}
+function cancelDelete() {
+  document.getElementById("confirm").hidden=true;
 }
 
 function addProduct() {
@@ -99,7 +108,7 @@ function addProduct() {
     <td>${product.price}</td>
     <td>
       <button class = "edit-btn">EDIT</button>
-      <button class = "delete-btn" onclick = "deleteElement(${e1.getAttribute("id")})">DELETE</button>
+      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute("id")})">DELETE</button>
     </td>`;
     table.appendChild(e1);
   }
