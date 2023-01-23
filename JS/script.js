@@ -94,27 +94,50 @@ function deleteElement() {
 function cancelDelete() {
   document.getElementById("confirm").hidden = true;
 }
+function validateUpdatedInput() {
+  if (isEmpty()) {
+    alert("Fields can not be empty!");
+    return false;
+  }
+  if (isLongerPName()) {
+    alert("Product name can not be longer than 60 characters!");
+    return false;
+  }
+  if (isPriceNegative()) {
+    alert("Product price can not be negative");
+    return false;
+  }
+  if (!isPriceValid()) {
+    alert("Price can not be more than 100000.00");
+    return false;
+  }
+  return true;
+}
 
 function updateProduct(pp) {
   let row = document.getElementById(pp);
-  let pID = document.getElementById("pid");
-  pID.disabled = false;
-
+  let pId = document.getElementById("pid");
   let pName = document.getElementById("pname");
   let pPrice = document.getElementById("price");
-  let add = document.getElementById("add");
-  add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
-  row.innerHTML = `<td>${pID.value}</td>
-    <td>${pName.value}</td>
-    <td>${pPrice.value}</td>
-    <td>
-      <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
-        "id"
-      )})">EDIT</button>
-      <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
-        "id"
-      )})">DELETE</button>
-    </td>`;
+  productId = pId.value;
+  productName = pName.value;
+  productPrice = pPrice.value;
+  if (validateUpdatedInput()) {
+    let add = document.getElementById("add");
+    add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
+    row.innerHTML = `<td>${productId}</td>
+      <td>${productName}</td>
+      <td>${productPrice}</td>
+      <td>
+        <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
+          "id"
+        )})">EDIT</button>
+        <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
+          "id"
+        )})">DELETE</button>
+      </td>`;
+    pId.disabled = false;
+  }
 }
 
 function editProduct(pp) {
