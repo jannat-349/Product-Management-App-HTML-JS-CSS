@@ -95,8 +95,26 @@ function cancelDelete() {
   document.getElementById("confirm").hidden = true;
 }
 
-function updateProduct() {
-  
+function updateProduct(pp) {
+  let row = document.getElementById(pp);
+  let pID = document.getElementById("pid");
+  pID.disabled = false;
+
+  let pName = document.getElementById("pname");
+  let pPrice = document.getElementById("price");
+  let add = document.getElementById("add");
+  add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
+  row.innerHTML = `<td>${pID.value}</td>
+    <td>${pName.value}</td>
+    <td>${pPrice.value}</td>
+    <td>
+      <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
+        "id"
+      )})">EDIT</button>
+      <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
+        "id"
+      )})">DELETE</button>
+    </td>`;
 }
 
 function editProduct(pp) {
@@ -113,7 +131,7 @@ function editProduct(pp) {
   let pPrice = document.getElementById("price");
   pPrice.value = cells[2].innerText;
   let update = document.getElementById("add");
-  update.innerHTML = `<button id="update-product-btn" onclick="updateProduct()">UPDATE</button>`;
+  update.innerHTML = `<button id="update-product-btn" onclick="updateProduct(${pp})">UPDATE</button>`;
 }
 
 function addProduct() {
