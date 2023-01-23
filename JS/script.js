@@ -113,7 +113,28 @@ function validateUpdatedInput() {
   }
   return true;
 }
-
+function clearInput() {
+  const inputBox = document.getElementById("input");
+  inputBox.innerHTML = `<div class="pid-input">
+  <label>PRODUCT ID: </label>
+  <input type="number" id="pid" placeholder="Enter Your Product ID" />
+</div>
+<div class="pname-input">
+  <label>PRODUCT NAME: </label>
+  <input type="text" id="pname" placeholder="Enter Your Product Name" />
+</div>
+<div class="price-input">
+  <label>PRICE: </label>
+  <input
+    type="number"
+    id="price"
+    placeholder="Enter Your Product Price"
+  />
+</div>
+<div id="add">
+  <button id="add-product-btn" onclick="addProduct()">ADD</button>
+</div>`;
+}
 function updateProduct(pp) {
   let row = document.getElementById(pp);
   let pId = document.getElementById("pid");
@@ -137,6 +158,7 @@ function updateProduct(pp) {
         )})">DELETE</button>
       </td>`;
     pId.disabled = false;
+    clearInput();
   }
 }
 
@@ -177,5 +199,6 @@ function addProduct() {
       )})">DELETE</button>
     </td>`;
     table.appendChild(e1);
+    clearInput();
   }
 }
