@@ -73,7 +73,7 @@ function addTableHead(tblHead) {
 }
 let p;
 function confirmation(pp) {
-  document.getElementById("confirm").hidden=false;
+  document.getElementById("confirm").hidden = false;
   const deleteMsg = document.getElementById("delete-msg");
   deleteMsg.innerText = `Do you really want to delete the product with id ${pp}`;
   p = pp;
@@ -89,10 +89,24 @@ function deleteElement() {
     <th>Nothing to show!</th>
   </thead>`;
   }
-  document.getElementById("confirm").hidden=true;
+  document.getElementById("confirm").hidden = true;
 }
 function cancelDelete() {
-  document.getElementById("confirm").hidden=true;
+  document.getElementById("confirm").hidden = true;
+}
+
+function editProduct(pp) {
+  let row = document.getElementById(pp);
+  let cells = row.getElementsByTagName("td");
+  // alert(cells[0].innerText);
+  // alert(cells[1].innerText);
+  // alert(cells[2].innerText);
+  let pID = document.getElementById("pid");
+  pID.value = cells[0].innerText;
+  let pName = document.getElementById("pname");
+  pName.value = cells[1].innerText;
+  let pPrice = document.getElementById("price");
+  pPrice.value = cells[2].innerText;
 }
 
 function addProduct() {
@@ -107,8 +121,12 @@ function addProduct() {
     <td>${product.pname}</td>
     <td>${product.price}</td>
     <td>
-      <button class = "edit-btn">EDIT</button>
-      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute("id")})">DELETE</button>
+      <button class = "edit-btn" onclick = "editProduct(${e1.getAttribute(
+        "id"
+      )})">EDIT</button>
+      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute(
+        "id"
+      )})">DELETE</button>
     </td>`;
     table.appendChild(e1);
   }
