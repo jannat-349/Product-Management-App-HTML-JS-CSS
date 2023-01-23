@@ -95,6 +95,10 @@ function cancelDelete() {
   document.getElementById("confirm").hidden = true;
 }
 
+function updateProduct() {
+  
+}
+
 function editProduct(pp) {
   let row = document.getElementById(pp);
   let cells = row.getElementsByTagName("td");
@@ -103,10 +107,13 @@ function editProduct(pp) {
   // alert(cells[2].innerText);
   let pID = document.getElementById("pid");
   pID.value = cells[0].innerText;
+  pID.disabled = true;
   let pName = document.getElementById("pname");
   pName.value = cells[1].innerText;
   let pPrice = document.getElementById("price");
   pPrice.value = cells[2].innerText;
+  let update = document.getElementById("add");
+  update.innerHTML = `<button id="update-product-btn" onclick="updateProduct()">UPDATE</button>`;
 }
 
 function addProduct() {
