@@ -2,6 +2,7 @@ let productId;
 let productName;
 let productPrice;
 let count = 0;
+let editMode = false;
 function isEmpty() {
   return productId && productName && productPrice ? false : true;
 }
@@ -30,9 +31,11 @@ function validateInput() {
     alert("Fields can not be empty!");
     return false;
   }
-  if (isIdDupicate(productId)) {
-    alert("Product ID must be unique!");
-    return false;
+  if(!editMode){
+    if (isIdDupicate(productId)) {
+      alert("Product ID must be unique!");
+      return false;
+    }
   }
   if (isLongerPName()) {
     alert("Product name can not be longer than 60 characters!");
@@ -48,6 +51,7 @@ function validateInput() {
   }
   return true;
 }
+
 function getInput() {
   productId = document.getElementById("pid").value;
   productName = document.getElementById("pname").value.trim();
@@ -94,25 +98,7 @@ function deleteElement() {
 function cancelDelete() {
   document.getElementById("confirm").hidden = true;
 }
-function validateUpdatedInput() {
-  if (isEmpty()) {
-    alert("Fields can not be empty!");
-    return false;
-  }
-  if (isLongerPName()) {
-    alert("Product name can not be longer than 60 characters!");
-    return false;
-  }
-  if (isPriceNegative()) {
-    alert("Product price can not be negative");
-    return false;
-  }
-  if (!isPriceValid()) {
-    alert("Price can not be more than 100000.00");
-    return false;
-  }
-  return true;
-}
+
 function clearInput() {
   const inputBox = document.getElementById("input");
   inputBox.innerHTML = `<div class="pid-input">
@@ -136,6 +122,7 @@ function clearInput() {
 </div>`;
 }
 function updateProduct(pp) {
+  editMode = true;
   let row = document.getElementById(pp);
   let pId = document.getElementById("pid");
   let pName = document.getElementById("pname");
@@ -143,7 +130,7 @@ function updateProduct(pp) {
   productId = pId.value;
   productName = pName.value;
   productPrice = pPrice.value;
-  if (validateUpdatedInput()) {
+  if (validateInput()) {
     let add = document.getElementById("add");
     add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
     row.innerHTML = `<td>${productId}</td>
@@ -180,6 +167,7 @@ function editProduct(pp) {
 }
 
 function addProduct() {
+  editMode = false;
   let product = getInput();
   if (count > 0) {
     const tblHead = document.getElementById("tbl-head");
