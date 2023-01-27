@@ -179,7 +179,7 @@ function addRow(product) {
           "id"
         )})">DELETE</button>
       </td>`;
-    table.appendChild(e1);
+    table.insertBefore(e1, table.firstChild);
   } else {
     let add = document.getElementById("add");
     let row = document.getElementById(product.productId);
