@@ -90,7 +90,11 @@ function deleteElement() {
   const row = document.getElementById(p);
   row.remove();
   let cells = row.getElementsByTagName("td");
-  let product = new Product(cells[0].innerText, cells[1].innerText, cells[2].innerText);
+  let product = new Product(
+    cells[0].innerText,
+    cells[1].innerText,
+    cells[2].innerText
+  );
 
   productList.splice(productList.indexOf(product), 1);
   count--;
@@ -130,34 +134,23 @@ function clearInput() {
 }
 function updateProduct(productIdToUpdate) {
   editMode = true;
-  let row = document.getElementById(productIdToUpdate);
   let pname = document.getElementById("pname").value;
   let price = document.getElementById("price").value;
   let product = new Product(productIdToUpdate, pname, price);
-  
+
   if (product.validateProduct()) {
-    let add = document.getElementById("add");
-    add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
-    row.innerHTML = `<td>${productIdToUpdate}</td>
-      <td>${pname}</td>
-      <td>${price}</td>
-      <td>
-        <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
-          "id"
-        )})">EDIT</button>
-        <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
-          "id"
-        )})">DELETE</button>
-      </td>`;
-    document.getElementById("pid").disabled = false;
-    clearInput();
+    addRow(product);
   }
 }
 
 function editProduct(productIdToEdit) {
   let row = document.getElementById(productIdToEdit);
   let cells = row.getElementsByTagName("td");
-  let product = new Product(cells[0].innerText, cells[1].innerText, cells[2].innerText);
+  let product = new Product(
+    cells[0].innerText,
+    cells[1].innerText,
+    cells[2].innerText
+  );
 
   let pID = document.getElementById("pid");
   pID.value = product.productId;
@@ -170,7 +163,42 @@ function editProduct(productIdToEdit) {
   let update = document.getElementById("add");
   update.innerHTML = `<button id="update-product-btn" onclick="updateProduct(${productIdToEdit})">UPDATE</button>`;
 }
-
+function addRow(product) {
+  if (!editMode) {
+    const table = document.getElementsByTagName("tbody")[0];
+    const e1 = document.createElement("tr");
+    e1.setAttribute("id", product.productId);
+    e1.innerHTML = `<td>${product.productId}</td>
+      <td>${product.productName}</td>
+      <td>${product.productPrice}</td>
+      <td>
+        <button class = "edit-btn" onclick = "editProduct(${e1.getAttribute(
+          "id"
+        )})">EDIT</button>
+        <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute(
+          "id"
+        )})">DELETE</button>
+      </td>`;
+    table.appendChild(e1);
+  } else {
+    let add = document.getElementById("add");
+    let row = document.getElementById(product.productId);
+    add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
+    row.innerHTML = `<td>${product.productId}</td>
+      <td>${product.productName}</td>
+      <td>${product.productPrice}</td>
+      <td>
+        <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
+          "id"
+        )})">EDIT</button>
+        <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
+          "id"
+        )})">DELETE</button>
+      </td>`;
+    document.getElementById("pid").disabled = false;
+  }
+  clearInput();
+}
 function addProduct() {
   editMode = false;
   let product = getInput();
@@ -178,17 +206,6 @@ function addProduct() {
   if (count > 0) {
     const tblHead = document.getElementById("tbl-head");
     addTableHead(tblHead);
-    const table = document.getElementsByTagName("tbody")[0];
-    const e1 = document.createElement("tr");
-    e1.setAttribute("id", product.productId);
-    e1.innerHTML = `<td>${product.productId}</td>
-    <td>${product.productName}</td>
-    <td>${product.productPrice}</td>
-    <td>
-      <button class = "edit-btn" onclick = "editProduct(${e1.getAttribute("id")})">EDIT</button>
-      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute("id")})">DELETE</button>
-    </td>`;
-    table.appendChild(e1);
-    clearInput();
+    addRow(product);
   }
 }
