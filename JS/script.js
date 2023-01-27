@@ -1,6 +1,5 @@
 let count = 0;
 let editMode = false;
-let pidList = [];
 let productList = [];
 function addInputMsg() {
   const msg = document.getElementById("msg");
@@ -14,13 +13,16 @@ class Product {
   constructor(pid, pname, price) {
     this.productId = pid;
     this.productName = pname;
-    this.productPrice = price;  
+    this.productPrice = price;
   }
   isEmpty() {
     return Boolean(!(this.productId && this.productName && this.productPrice));
   }
   isIdDupicate() {
-    return Boolean(pidList.includes(this.productId));
+    let duplicate = productList.find((p) => {
+      return p.productId === this.productId;
+    });
+    return Boolean(duplicate);
   }
   isLongerPName() {
     return Boolean(this.productName.length > 60);
@@ -36,7 +38,7 @@ class Product {
       alert("Fields can not be empty!");
       return false;
     }
-    if(!editMode){
+    if (!editMode) {
       if (this.isIdDupicate()) {
         alert("Product ID must be unique!");
         return false;
@@ -56,7 +58,6 @@ class Product {
     }
     return true;
   }
-
 }
 function getInput() {
   let pid = document.getElementById("pid").value;
@@ -66,7 +67,6 @@ function getInput() {
   if (product.validateProduct()) {
     productList.push(product);
     count++;
-    pidList.push(product.productId);
     addInputMsg();
     return product;
   }
@@ -89,7 +89,12 @@ function confirmation(pp) {
 function deleteElement() {
   const row = document.getElementById(p);
   row.remove();
-  pidList.splice(pidList.indexOf(row.getAttribute("id")), 1);
+  let cells = row.getElementsByTagName("td");
+  let product = new Product(cells[0], cells[1], cells[2]);
+
+  productList = productList.map((p) => {
+    return p !== product;
+  });
   count--;
   if (count === 0) {
     const tblHead = document.getElementById("tbl-head");
