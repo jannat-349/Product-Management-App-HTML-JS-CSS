@@ -90,11 +90,9 @@ function deleteElement() {
   const row = document.getElementById(p);
   row.remove();
   let cells = row.getElementsByTagName("td");
-  let product = new Product(cells[0], cells[1], cells[2]);
+  let product = new Product(cells[0].innerText, cells[1].innerText, cells[2].innerText);
 
-  productList = productList.map((p) => {
-    return p !== product;
-  });
+  productList.splice(productList.indexOf(product), 1);
   count--;
   if (count === 0) {
     const tblHead = document.getElementById("tbl-head");
@@ -130,50 +128,48 @@ function clearInput() {
   <button id="add-product-btn" onclick="addProduct()">ADD</button>
 </div>`;
 }
-// function updateProduct(pp) {
-//   editMode = true;
-//   let row = document.getElementById(pp);
-//   let pId = document.getElementById("pid");
-//   let pName = document.getElementById("pname");
-//   let pPrice = document.getElementById("price");
-//   productId = pId.value;
-//   productName = pName.value;
-//   productPrice = pPrice.value;
-//   if (validateInput()) {
-//     let add = document.getElementById("add");
-//     add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
-//     row.innerHTML = `<td>${productId}</td>
-//       <td>${productName}</td>
-//       <td>${productPrice}</td>
-//       <td>
-//         <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
-//           "id"
-//         )})">EDIT</button>
-//         <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
-//           "id"
-//         )})">DELETE</button>
-//       </td>`;
-//     pId.disabled = false;
-//     clearInput();
-//   }
-// }
+function updateProduct(productIdToUpdate) {
+  editMode = true;
+  let row = document.getElementById(productIdToUpdate);
+  let pname = document.getElementById("pname").value;
+  let price = document.getElementById("price").value;
+  let product = new Product(productIdToUpdate, pname, price);
+  
+  if (product.validateProduct()) {
+    let add = document.getElementById("add");
+    add.innerHTML = `<button id="add-product-btn" onclick="addProduct()">ADD</button>`;
+    row.innerHTML = `<td>${productIdToUpdate}</td>
+      <td>${pname}</td>
+      <td>${price}</td>
+      <td>
+        <button class = "edit-btn" onclick = "editProduct(${row.getAttribute(
+          "id"
+        )})">EDIT</button>
+        <button class = "delete-btn" onclick = "confirmation(${row.getAttribute(
+          "id"
+        )})">DELETE</button>
+      </td>`;
+    document.getElementById("pid").disabled = false;
+    clearInput();
+  }
+}
 
-// function editProduct(pp) {
-//   let row = document.getElementById(pp);
-//   let cells = row.getElementsByTagName("td");
-//   // alert(cells[0].innerText);
-//   // alert(cells[1].innerText);
-//   // alert(cells[2].innerText);
-//   let pID = document.getElementById("pid");
-//   pID.value = cells[0].innerText;
-//   pID.disabled = true;
-//   let pName = document.getElementById("pname");
-//   pName.value = cells[1].innerText;
-//   let pPrice = document.getElementById("price");
-//   pPrice.value = cells[2].innerText;
-//   let update = document.getElementById("add");
-//   update.innerHTML = `<button id="update-product-btn" onclick="updateProduct(${pp})">UPDATE</button>`;
-// }
+function editProduct(productIdToEdit) {
+  let row = document.getElementById(productIdToEdit);
+  let cells = row.getElementsByTagName("td");
+  let product = new Product(cells[0].innerText, cells[1].innerText, cells[2].innerText);
+
+  let pID = document.getElementById("pid");
+  pID.value = product.productId;
+  pID.disabled = true;
+  let pName = document.getElementById("pname");
+  pName.value = product.productName;
+  let pPrice = document.getElementById("price");
+  pPrice.value = product.productPrice;
+
+  let update = document.getElementById("add");
+  update.innerHTML = `<button id="update-product-btn" onclick="updateProduct(${productIdToEdit})">UPDATE</button>`;
+}
 
 function addProduct() {
   editMode = false;
@@ -189,12 +185,8 @@ function addProduct() {
     <td>${product.productName}</td>
     <td>${product.productPrice}</td>
     <td>
-      <button class = "edit-btn" onclick = "editProduct(${e1.getAttribute(
-        "id"
-      )})">EDIT</button>
-      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute(
-        "id"
-      )})">DELETE</button>
+      <button class = "edit-btn" onclick = "editProduct(${e1.getAttribute("id")})">EDIT</button>
+      <button class = "delete-btn" onclick = "confirmation(${e1.getAttribute("id")})">DELETE</button>
     </td>`;
     table.appendChild(e1);
     clearInput();
