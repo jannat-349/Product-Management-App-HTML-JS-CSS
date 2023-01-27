@@ -20,16 +20,16 @@ class Product {
     return Boolean(!(this.productId && this.productName && this.productPrice));
   }
   isIdDupicate() {
-    return pidList.includes(this.productId);
+    return Boolean(pidList.includes(this.productId));
   }
   isLongerPName() {
-    return this.productName.length > 60 ? true : false;
+    return Boolean(this.productName.length > 60);
   }
   isPriceNegative() {
-    return this.productPrice < 0 ? true : false;
+    return Boolean(this.productPrice < 0);
   }
   isPriceValid() {
-    return this.productPrice <= 100000.0 ? true : false;
+    return Boolean(this.productPrice <= 100000.0);
   }
   validateProduct() {
     if (this.isEmpty()) {
