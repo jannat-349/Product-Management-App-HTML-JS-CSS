@@ -163,6 +163,13 @@ function editProduct(productIdToEdit) {
   let update = document.getElementById("add");
   update.innerHTML = `<button id="update-product-btn" onclick="updateProduct(${productIdToEdit})">UPDATE</button>`;
 }
+function updateProductList(product) {
+  productList.splice(productList.indexOf(product), 1);
+  productList.push(product);
+}
+function addToLocalStorage() {
+  localStorage.setItem('products', JSON.stringify(productList));
+}
 function addRow(product) {
   if (!editMode) {
     const table = document.getElementsByTagName("tbody")[0];
@@ -196,7 +203,9 @@ function addRow(product) {
         )})">DELETE</button>
       </td>`;
     document.getElementById("pid").disabled = false;
+    updateProductList(product);
   }
+  addToLocalStorage();
   clearInput();
 }
 function addProduct() {
