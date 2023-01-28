@@ -96,6 +96,7 @@ function deleteElement() {
     cells[2].innerText
   );
 
+
   productList.splice(productList.indexOf(product), 1);
   count--;
   if (count === 0) {
@@ -203,11 +204,14 @@ function addRow(product) {
         )})">DELETE</button>
       </td>`;
     document.getElementById("pid").disabled = false;
+
     updateProductList(product);
+
   }
   addToLocalStorage();
   clearInput();
 }
+
 function addProduct() {
   editMode = false;
   let product = getInput();
